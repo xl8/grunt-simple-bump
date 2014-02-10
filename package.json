@@ -1,0 +1,49 @@
+{
+    "name": "grunt-simple-bump",
+    "description": "Super simple version bump",
+    "version": "0.1.0",
+    "homepage": "https://github.com/xl8/grunt-simple-bump",
+    "author": {
+        "name": "Ofer Itzhaki",
+        "email": "oferi@exelate.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/xl8/grunt-simple-bump.git"
+    },
+    "bugs": {
+        "url": "https://github.com/xl8/grunt-simple-bump/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://github.com/xl8/grunt-simple-bump/blob/master/LICENSE-"
+        }
+    ],
+    "main": "grunt.js",
+    "engines": {
+        "node": "~0.8"
+    },
+    "scripts": {
+        "test": "grunt test"
+    },
+    "peerDependencies": {
+        "grunt": "~0.4.2"
+    },
+    "dependencies": {
+        "semver": "~2.1.0",
+        "underscore": "~1.5.2"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-contrib-nodeunit": "~0.2.2"
+    },
+    "keywords": [
+        "gruntplugin",
+        "bump"
+    ],
+    "readme": "",
+    "readmeFilename": "README.md",
+    "_id": "grunt-simple-bump@0.1.0",
+    "_from": "grunt-simple-bump@0.1.0"
+}
