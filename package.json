@@ -1,7 +1,7 @@
 {
   "name": "grunt-simple-bump",
   "description": "Super simple version bump",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/xl8/grunt-simple-bump",
   "author": {
     "name": "Ofer Itzhaki",
@@ -45,6 +45,6 @@
   ],
   "readme": "",
   "readmeFilename": "README.md",
-  "_id": "grunt-simple-bump@0.1.0",
-  "_from": "grunt-simple-bump@0.1.0"
+  "_id": "grunt-simple-bump@0.1.1",
+  "_from": "grunt-simple-bump@0.1.1"
 }

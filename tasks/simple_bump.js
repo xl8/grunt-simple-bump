@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         var args = this.args;
         var releaseType = args[0] || 'build';
         var buildMeta = args[1];
-        var configFiles = grunt.config('simple_bump').files || 'package.json';
+        var configFiles = grunt.config('simple_bump')?  grunt.config('simple_bump').files : ['package.json'];
         var files = Array.isArray(configFiles) ? configFiles : [configFiles];
         // TODO: add support fo sync version between all files
 //        var options = this.options({
