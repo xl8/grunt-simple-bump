@@ -3,7 +3,7 @@
 module.exports = function(grunt) {
 
     var semver = require('semver');
-    var _ = require('underscore');
+    var detectIndent = require('detect-indent');
 
 
     // Error handler
@@ -18,12 +18,17 @@ module.exports = function(grunt) {
 
     grunt.registerTask('simple_bump', 'Super simple version bump', function () {
 
-        grunt.log.writeln('this.args:', this.args);
-
         var args = this.args;
         var releaseType = args[0] || 'build';
         var buildMeta = args[1];
-        var meta = args[2];
+        var configFiles = grunt.config('simple_bump').files || 'package.json';
+        var files = Array.isArray(configFiles) ? configFiles : [configFiles];
+        // TODO: add support fo sync version between all files
+//        var options = this.options({
+//            sync: false
+//        });
+//        var sync = options.sync;
+
 
 
         // check for valid release type
@@ -35,11 +40,6 @@ module.exports = function(grunt) {
             }
         }
 
-        // Get configuration and set the options
-        var options = this.options();
-        var configFiles = grunt.config('simple_bump').files || 'package.json';
-        var files = _.isArray(configFiles) ? configFiles : [configFiles];
-        grunt.log.warn('files:', files);
         // Bump it up!
         files.filter(function(filepath) {
             // Remove nonexistent files.
@@ -52,109 +52,45 @@ module.exports = function(grunt) {
         })
         .forEach(function(filepath) {
             try {
+                // Get the filepath
                 var file = grunt.file.read(filepath);
-                var meta = JSON.parse(file);
-                grunt.log.writeln('try->meta', meta.version);
-                grunt.log.writeln('Bumping "' + filepath.cyan + '":');
+                // Get the current indentation
+                var indent = detectIndent(file) || '    ';
+                grunt.log.ok('Bumping "' + filepath + '":' + releaseType.magenta);
+
+                // Get the current version
+                var parsedFile = JSON.parse(file);
+                var currentVersion = parsedFile.version;
+                var buildNo = currentVersion.split('+')[1] || 0;
+                var newVersion = '';
+                currentVersion = semver.valid(currentVersion);
+
+                grunt.log.ok('Was:', currentVersion);
+
+
+                // Bump version
+                if (releaseType === 'build') {
+                    if (buildMeta) {
+                        newVersion = currentVersion + '+' + buildMeta;
+                    }
+                    else {
+                        buildNo++;
+                        newVersion = currentVersion + '+' + buildNo;
+                    }
+                }
+                else {
+                    var suffix = buildMeta? ('+' + buildMeta) : '';
+                    newVersion = semver.inc(currentVersion, releaseType) + suffix;
+                }
+
+                parsedFile.version = newVersion;
+                grunt.file.write(filepath, JSON.stringify(parsedFile, null, indent));
+                grunt.log.ok('Bumped to ' + newVersion.cyan);
+
             }
             catch(e) {
                 handleError(e, 'bump failed.');
             }
         });
-
-
-//        var config = ['string', 'array'].indexOf(type(taskConfig)) !== -1 ? { files: taskConfig } : taskConfig;
-//        var files = type(config.files) === 'array' ? config.files : [config.file || config.files];
-//        var o = grunt.util._.extend({
-//            dateformat: 'YYYY-MM-DD HH:mm:ss Z',
-//            normalize: true,
-//            updateProps: {}
-//        }, config.options || {});
-//        var norm = {};
-//
-//        if (!files.length) {
-//            grunt.log.warn('Nothing to bump up.');
-//            return;
-//        }
-
-        // Create an object of property setters
-//        var setters = {
-//            version: function (old, type, o, buildMeta) {
-//                if (semver.valid(type)) {
-//                    return type;
-//                }
-//                var oldVersion = semver.valid(old);
-//                if (!oldVersion) {
-//                    grunt.log.warn('Version "' + old + '" is not a valid semantic version.');
-//                    return;
-//                }
-//                var newVersion = type !== 'build' ? semver.inc(oldVersion, type) : oldVersion;
-//                if (buildMeta) {
-//                    newVersion += '+' + buildMeta;
-//                }
-//                return newVersion;
-//            }
-//        };
-//        Object.keys(config.setters || {}).forEach(function (key) {
-//            setters[key] = config.setters[key];
-//        });
-
-        // Flip updateProps map for easier usage
-//        var updatePropsMap = {};
-//        Object.keys(o.updateProps).forEach(function (key) {
-//            updatePropsMap[o.updateProps[key]] = key;
-//        });
-
-        // Bumpup the files
-//        files.filter(function (filepath) {
-//            // Remove nonexistent files.
-//            if (!grunt.file.exists(filepath)) {
-//                grunt.log.warn('File "' + filepath.cyan + '" not found.');
-//                return false;
-//            } else {
-//                return true;
-//            }
-//        }).forEach(function (filepath) {
-//            try {
-//                var file = grunt.file.read(filepath);
-//                var meta = JSON.parse(file);
-//                var indentation = detectIndentation(file);
-//
-//                grunt.log.verbose.writeln('Bumping "' + filepath.cyan + '":');
-//
-//                // Update properties with defined setters
-//                Object.keys(setters).forEach(function (key) {
-//                    if (!Object.prototype.hasOwnProperty.call(meta, key)) {
-//                        return;
-//                    }
-//
-//                    var newValue;
-//                    if (o.normalize && norm[key] != null) {
-//                        newValue = norm[key];
-//                    } else {
-//                        norm[key] = newValue = setters[key](meta[key], releaseType, o, buildMeta);
-//                    }
-//
-//                    if (newValue != null) {
-//                        meta[key] = newValue;
-//                        grunt.log.verbose.writeln(grunt.util.repeat(Math.max(16 - key.length, 0), ' ') + key + ' : ' + newValue);
-//                    }
-//                });
-//
-//                // Stringify new metafile and save
-//                if (!grunt.file.write(filepath, JSON.stringify(meta, null, indentation))) {
-//                    grunt.log.warn('Couldn\'t write to "' + filepath + '"');
-//                }
-//
-//                // Update config property
-//                if (updatePropsMap[filepath]) {
-//                    grunt.config.set(updatePropsMap[filepath], meta);
-//                }
-//            } catch (error) {
-//                failed(error, 'Bumpup failed.');
-//            }
-//        }, this);
-
-//        grunt.log.writeln('Bumped to: ' + norm.version);
     });
 };

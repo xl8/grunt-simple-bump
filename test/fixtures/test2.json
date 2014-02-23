@@ -1,7 +1,7 @@
 {
     "name": "grunt-simple-bump",
     "description": "Super simple version bump",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "homepage": "https://github.com/xl8/grunt-simple-bump",
     "author": {
         "name": "Ofer Itzhaki",

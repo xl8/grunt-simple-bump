@@ -1,0 +1,13 @@
+{
+  "name": "grunt-simple-bump",
+  "description": "Super simple version bump",
+  "version": "0.0.0",
+  "homepage": "https://github.com/xl8/grunt-simple-bump",
+  "author": {
+    "name": "Ofer Itzhaki",
+    "email": "oferi@exelate.com"
+  },
+  "prop1": "1",
+  "prop2": "2",
+  "prop3": "3"
+}
