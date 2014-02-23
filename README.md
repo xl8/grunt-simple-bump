@@ -30,10 +30,10 @@ In your project's Gruntfile, add a section named `simple_bump`.
 
 ```js
 grunt.initConfig({
-        simple_bump: {
-            files: ['package.json', 'component.json', 'somefile.txt']
-        }
-    });
+  simple_bump: {
+    files: ['package.json', 'component.json', 'somefile.txt']
+  }
+});
     
 ```
 
@@ -42,7 +42,7 @@ grunt.initConfig({
 ```js
 grunt simple_bump
 ```
-By default, the *build* version is bumped.
+By default, the **build** version is bumped. if `buildmeta` suffix is not passed than the buildmeta is treated as a number and will be incremented automatically. 
 You can specify a different release type bump in 1st argument:
 ```js
 grunt simple_bump:[releaseType]
