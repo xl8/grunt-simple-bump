@@ -17,10 +17,10 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 npm install grunt-simple-bump --save-dev
 ```
 
-Add this line to your project's `Gruntfile.coffee`:
+Add this line to your project's `Gruntfile.js`:
 
 ```js
-grunt.loadNpmTasks 'grunt-simple-bump'
+grunt.loadNpmTasks('grunt-simple-bump');
 ```
 
 ## The "simple_bump" task
