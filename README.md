@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/xl8/grunt-simple-bump.png?branch=master)](https://travis-ci.org/xl8/grunt-simple-bump)
-
+[ ![Codeship Status for oferitz/grunt-simple-bump](https://codeship.com/projects/feed01d0-e013-0131-fce5-3a1d3d24338d/status)](https://codeship.com/projects/25093)
 # grunt-simple-bump
 -------------------------------
 
