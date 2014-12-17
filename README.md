@@ -1,5 +1,4 @@
-[ ![Codeship Status for oferitz/grunt-simple-bump](https://codeship.com/projects/feed01d0-e013-0131-fce5-3a1d3d24338d/status)](https://codeship.com/projects/25093)
-# grunt-simple-bump
+[![Build Status](https://drone.io/github.com/oferitz/grunt-simple-bump/status.png)](https://drone.io/github.com/oferitz/grunt-simple-bump/latest)
 -------------------------------
 
 > Super simple version bump for grunt.
