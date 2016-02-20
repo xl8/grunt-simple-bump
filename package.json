@@ -28,7 +28,7 @@
     "test": "grunt test"
   },
   "peerDependencies": {
-    "grunt": "~0.4.2"
+    "grunt": ">=0.4.2"
   },
   "dependencies": {
     "semver": "~2.1.0",
